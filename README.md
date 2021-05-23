@@ -21,3 +21,6 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 For this assignment, I was able to accomplish all of the Acceptance Criteria.  This assignment was the most challenging yet, hence me turning it in late.  I had problems with my server initially, but was able to overcome that.  Then it was getting the new notes to save, but once I got that it didn't seem to be as difficult as when I first started.  Since I'm already turning it in late I decided to try and do the bonus to get the delete function working.  To my surprise it worked!  Overall, looking back on this assignment, it wasn't too bad, but definitely an eye-opening experience.
 
 ## Screenshots
+![images1](https://user-images.githubusercontent.com/78131360/119276287-db30d600-bbce-11eb-91fb-7940a47ead63.png)
+![images2](https://user-images.githubusercontent.com/78131360/119276288-dbc96c80-bbce-11eb-96e8-8fb4ce0f585b.png)
+![images3](https://user-images.githubusercontent.com/78131360/119276289-dc620300-bbce-11eb-9266-21628a8b15d3.png)
