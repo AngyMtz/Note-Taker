@@ -51,6 +51,7 @@ function createNewNote(body, notesArray) {
   body.id = notesArray[0];
   notesArray[0]++;
 
+  //Saving the note in the data base file.
   notesArray.push(newNote);
   fs.writeFileSync(
       path.join(__dirname, './db/db.json'),
@@ -63,6 +64,30 @@ function createNewNote(body, notesArray) {
 app.post('/api/notes', (req, res) => {
   const newNote = createNewNote(req.body, allNotes);
   res.json(newNote);
+});
+
+//Function to dellete a note from the data base db.json
+function deleteNote(id, notesArray) {
+  for (let i = 0; i < notesArray.length; i++) {
+      let note = notesArray[i];
+
+      if (note.id == id) {
+          notesArray.splice(i, 1);
+          //Afecting the db.json file
+          fs.writeFileSync(
+              path.join(__dirname, './db/db.json'),
+              JSON.stringify(notesArray, null, 2)
+          );
+
+          break;
+      }
+  }
+}
+
+//deleting the note on the left side of the page.
+app.delete('/api/notes/:id', (req, res) => {
+  deleteNote(req.params.id, allNotes);
+  res.json(true);
 });
 
 app.listen(PORT, () => {
