@@ -10,6 +10,9 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
+//Saves all notes
+const allNotes = require('./db/db.json');
+
 // Sets an initial port. We"ll use this later in our listener
 const PORT = process.env.PORT || 8000;
 
@@ -36,10 +39,31 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
-app.use('/', htmlroutes);
-// LISTENER
-// The below code effectively "starts" our server
+//Function that will create a new note.
+function createNewNote(body, notesArray) {
+  const newNote = body;
+  if (!Array.isArray(notesArray))
+      notesArray = [];
+  
+  if (notesArray.length === 0)
+      notesArray.push(0);
+
+  body.id = notesArray[0];
+  notesArray[0]++;
+
+  notesArray.push(newNote);
+  fs.writeFileSync(
+      path.join(__dirname, './db/db.json'),
+      JSON.stringify(notesArray, null, 2)
+  );
+  return newNote;
+}
+
+//The notes are display on the left panel of the page.
+app.post('/api/notes', (req, res) => {
+  const newNote = createNewNote(req.body, allNotes);
+  res.json(newNote);
+});
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT: ${PORT}`);
