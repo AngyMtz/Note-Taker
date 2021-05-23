@@ -12,8 +12,7 @@ const app = express();
 
 // Sets an initial port. We"ll use this later in our listener
 const PORT = process.env.PORT || 8000;
-// app.use(app.router);
-// routes.initialize(app);
+
 // Sets up the Express app to handle data parsing
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -21,12 +20,24 @@ app.use(express.json());
 
 // ROUTER
 // The below points our server to a series of "route" files.
+app.get('/api/notes', (req, res) => {
+  res.json(allNotes.slice(1));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 app.use('/', htmlroutes);
-// app.use('/apiroutes', apiroutes);
-// require('./Develop/route/apiroutes')(app);
-// require('./Develop/route/htmlroutes')(app);
-
 // LISTENER
 // The below code effectively "starts" our server
 
